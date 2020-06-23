@@ -29,7 +29,15 @@ pipeline {
             }
         }
 
-
+        stage('Set kubectl context') {
+            steps {
+                withAWS(region:'us-west-2', credentials:'aws-devops') {
+                    sh '''
+                        kubectl config use-context arn:aws:eks:us-west-2:918317714877:cluster/capstone-devops-cluster
+                    '''
+                }
+            }
+        }
 
     }
 }
