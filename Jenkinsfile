@@ -75,7 +75,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f ./green-service.json
+                        kubectl apply -f green-service.json
                     '''
                 }
             }
@@ -91,7 +91,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f ./blue-service.json
+                        kubectl apply -f blue-service.json
                     '''
                 }
             }
