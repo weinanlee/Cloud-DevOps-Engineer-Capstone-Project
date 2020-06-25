@@ -7,7 +7,7 @@ pipeline {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
                     eksctl create cluster \
-                    --name capstone-devops-cluster \
+                    --name capstone-cloud-devops-cluster \
                     --version 1.16 \
                     --nodegroup-name standard-workers \
                     --node-type t2.micro \
