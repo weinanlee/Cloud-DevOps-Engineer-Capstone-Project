@@ -91,7 +91,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f blue-service.ymal
+                        kubectl apply -f blue-service.yml
                     '''
                 }
             }
