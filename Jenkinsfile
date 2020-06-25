@@ -29,11 +29,11 @@ pipeline {
             }
         }
 
-        stage('Create conf file cluster') {
+        stage('Create cluster configuration') {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        aws eks --region us-west-2 update-kubeconfig --name capstone-devops-cluster
+                        aws eks --region us-west-2 update-kubeconfig --name capstone-cloud-devops-cluster
                     '''
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl config use-context arn:aws:eks:us-west-2:918317714877:cluster/capstone-devops-cluster
+                        kubectl config use-context arn:aws:eks:us-west-2:918317714877:cluster/capstone-cloud-devops-cluster
                     '''
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f ./blue-controller.json
+                        kubectl apply -f ./blue-controller.yml
                     '''
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f ./green-controller.json
+                        kubectl apply -f ./green-controller.yml
                     '''
                 }
             }
@@ -75,7 +75,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f green-service.json
+                        kubectl apply -f green-service.yml
                     '''
                 }
             }
@@ -83,7 +83,7 @@ pipeline {
 
         stage('Wait user approve') {
             steps {
-                input "Ready to redirect traffic to blue?"
+                input "The service will redict to blue..."
             }
         }
 
@@ -91,7 +91,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-devops') {
                     sh '''
-                        kubectl apply -f blue-service.json
+                        kubectl apply -f blue-service.ymal
                     '''
                 }
             }
